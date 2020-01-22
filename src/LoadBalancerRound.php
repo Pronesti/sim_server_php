@@ -48,7 +48,7 @@ class LoadBalancerRound implements \Interfaces\Server, \Interfaces\LoadBalancer
             }
             return $item;
         } else {
-            return 0;
+            throw new \Exception();
         }
     }
 }

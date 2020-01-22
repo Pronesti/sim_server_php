@@ -11,7 +11,7 @@ class ServerInstance implements \Interfaces\Server
         $this->name = $name;
         $this->puede = [200 => $ok, 300 => $redirect, 400 => $notFound, 500 => $error, 0 => $down];
     }
-    public function call()
+    public function call(): int
     {
         $newArray = array();
         foreach ($this->puede as $k => $v) {
@@ -22,11 +22,11 @@ class ServerInstance implements \Interfaces\Server
         if (count($newArray) > 0) {
             return $newArray[random_int(0, count($newArray) - 1)];
         } else {
-            return null;
+            throw new \Exception();
         }
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }

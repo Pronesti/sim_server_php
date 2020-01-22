@@ -1,5 +1,6 @@
 <?php
 namespace Classes;
+
 class LoadBalancerRandom implements \Interfaces\Server, \Interfaces\LoadBalancer
 {
     private $servers = array();
@@ -40,7 +41,7 @@ class LoadBalancerRandom implements \Interfaces\Server, \Interfaces\LoadBalancer
         if (count($this->servers) > 0) {
             return $this->servers[random_int(0, count($this->servers) - 1)]->call();
         } else {
-            return 0;
+            throw new \Exception();
         }
     }
 }
