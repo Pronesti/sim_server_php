@@ -29,7 +29,11 @@ final class LoadBalancerRoundTest extends TestCase{
     }
     function testCallEmpty(){
         $lb = new \Classes\LoadBalancerRound("Round");
-        $this->assertSame(0, $lb->call());
+        try{
+            $lb->call();
+        }catch(\Exception $e){
+            $this->assertTrue(true);
+        }
     }
     function testCall(){
         $lb = new \Classes\LoadBalancerRound("Round");
@@ -39,5 +43,12 @@ final class LoadBalancerRoundTest extends TestCase{
     function testGetName(){
         $lb = new \Classes\LoadBalancerRound("Round");
         $this->assertSame("Round", $lb->getName());
+    }
+    function testRoundRobin(){
+        $lb = new \Classes\LoadBalancerRound("Round");
+        $this->assertTrue($lb->addServer(new \Classes\ServerInstance("server1", true, false, false, false, false)));
+        $this->assertTrue($lb->addServer(new \Classes\ServerInstance("server2", false, true, false, false, false)));
+        $this->assertSame(200, $lb->call());
+        $this->assertSame(300, $lb->call());
     }
 }
