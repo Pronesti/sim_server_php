@@ -10,8 +10,8 @@ require __DIR__ . '/../vendor/autoload.php';
 $app = AppFactory::create();
 
 $app->get('/', function (Request $request, Response $response, array $args) {
-    $load1 = new \Classes\DecoratorCounter(new \Classes\LoadBalancerRound("load1"));
-    $load2 = new \Classes\DecoratorCounter(new \Classes\LoadBalancerRandom("load2"));
+    $load1 = new \Classes\DecoratorCounter(new \Classes\LoadBalancer("load1", new \Classes\RoundStrategy));
+    $load2 = new \Classes\DecoratorCounter(new \Classes\LoadBalancer("load2", new \Classes\RandomStrategy));
     $load1->addServer($load2);
     $server1 = new \Classes\DecoratorCounter(new \Classes\ServerInstance("anda maso", true, true, true, false, false));
     $server2 = new \Classes\DecoratorCounter(new \Classes\ServerInstance("malo", false, false, true, true, true));
