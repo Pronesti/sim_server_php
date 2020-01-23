@@ -36,6 +36,9 @@ class LoadBalancerRandom implements \Interfaces\Server, \Interfaces\LoadBalancer
     {
         return $this->name;
     }
+    public function getList(): array{
+        return $this->servers;
+    }
     public function call(): int
     {
         if (count($this->servers) > 0) {
